@@ -20,7 +20,7 @@ import {
     Pressable,
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
-    Keyboard
+    Keyboard, Image
 } from 'react-native';
 
 import {
@@ -67,6 +67,7 @@ const NewFeedScreen = ({ navigation }) => {
             setLoading(false);
             navigation.goBack();
         } catch (e) {
+            console.log(e);
             setLoading(false);
         }
     }
@@ -98,6 +99,20 @@ const NewFeedScreen = ({ navigation }) => {
                                 <CustopmDropdown onChangeInput={(location) => {
                                     setInputData({ ...inputData, location: location });
                                 }} data={[{ id: 1, title: 'Dhaka' }, { id: 2, title: "Rajshahi" }]} title={`Select  Location`} value={inputData['description']} isDarkMode={isDarkMode} />
+                            </View>
+                            <View style={{ flexWrap: 'wrap', padding: 10 }}>
+                                {
+                                    images.map((image) => {
+                                        return (<View style={{ padding: 5 }} key={image.id}>
+                                            <Image
+                                                style={{ width: 100, height: 100 }}
+                                                source={{
+                                                    uri: image['url']
+                                                }}
+                                            />
+                                        </View>);
+                                    })
+                                }
                             </View>
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <RectButton pressFunction={navigateToCamera} title={`Attach Image`} />

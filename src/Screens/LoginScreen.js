@@ -44,8 +44,7 @@ const LoginScreen = (props) => {
             await dispatch(loginSubmit(username, password));
             const response = await dispatch(fetchProfile());
             setLoading(false);
-            // if (response.type === 'FETCH_PROFILE_SUCCESS')
-            //     registerTab();
+
         }
         catch (e) { }
         setLoading(false);
