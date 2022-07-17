@@ -100,7 +100,7 @@ const NewFeedScreen = ({ navigation }) => {
                                     setInputData({ ...inputData, location: location });
                                 }} data={[{ id: 1, title: 'Dhaka' }, { id: 2, title: "Rajshahi" }]} title={`Select  Location`} value={inputData['description']} isDarkMode={isDarkMode} />
                             </View>
-                            <View style={{ flexWrap: 'wrap', padding: 10 }}>
+                            <View style={{ flexWrap: 'wrap', padding: 10, flexDirection: 'row' }}>
                                 {
                                     images.map((image) => {
                                         return (<View style={{ padding: 5 }} key={image.id}>
