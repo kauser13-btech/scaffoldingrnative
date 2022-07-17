@@ -31,3 +31,4 @@ export const shouldProcessItem = (item) => {
 export const isIOS = () => {
     return Platform.OS === 'ios';
 };
+

@@ -1,6 +1,7 @@
 import { getQueueInstance } from "../queue/queueInstance";
-import { readImageDataFromUrl } from "../Utils/fs";
-
+import { getFileReadPath, readImageDataFromUrl } from "../Utils/fs";
+import { call, put, select } from 'redux-saga/effects';
+import { isIOS, shouldProcessItem } from "../Utils/util";
 export const FETCH_WALLET = 'FETCH_WALLET';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
 export const LOGIN_SUBMIT = 'LOGIN_SUBMIT';
@@ -9,8 +10,12 @@ export const FETCH_POST = 'FETCH_POST';
 export const FETCH_POST_APPEND = 'FETCH_POST_APPEND';
 export const MAKE_POST = 'MAKE_POST';
 export const MAKE_IMAGE = 'MAKE_IMAGE';
-
 export const INITIATE_QUEUE = 'INITIATE_QUEUE';
+export const REGISTER_QUEUE = 'REGISTER_QUEUE';
+export const UPLOAD_START = 'UPLOAD_START';
+export const REQUEUE = 'REQUEUE';
+export const REMOVE_QUEUE = 'REMOVE_QUEUE';
+export const HEARTBEAT = 'HEARTBEAT';
 
 export const loginSubmit = (username, password) => {
     return {
@@ -80,6 +85,7 @@ export const makePost = (post) => {
 
 
 export const makeImage = (data) => {
+    // console.log(data);
 
     return {
         type: MAKE_IMAGE,
@@ -94,29 +100,94 @@ export const makeImage = (data) => {
 };
 
 
-async function CreateImageUpload(dispatch, getState, id, image) {
+export const InitiateToQueue = (data) => {
+
+    return {
+        type: INITIATE_QUEUE,
+        payload: {
+            data: data
+        },
+    };
+};
+
+
+export const pushToQueue = (data) => {
+
+    return {
+        type: REGISTER_QUEUE,
+        payload: {
+            data: data
+        },
+    };
+};
+
+
+export const processToQueue = (data) => {
+    console.log("Inpro");
+    console.log(data);
+
+    return {
+        type: UPLOAD_START,
+        payload: {
+            data: data
+        },
+    };
+};
+
+
+export const RemoveToQueue = (data) => {
+
+    return {
+        type: REMOVE_QUEUE,
+        payload: {
+            data: data
+        },
+    };
+};
+
+
+export const ReQueue = (data) => {
+
+    return {
+        type: REQUEUE,
+        payload: {
+            data: data
+        },
+    };
+};
+
+
+async function CreateImageUpload(dispatch, getState, image) {
 
 
     try {
+
         const imageData = await readImageDataFromUrl(image.url);
+        console.log('In job');
 
-
-
-        if (imageData == '') {
-
+        if (imageData == '' || imageData === undefined) {
+            await dispatch(RemoveToQueue(image));
             // return await dispatch(RemoveQueue(image));
             throw Error('issue uploading failed');
         }
+        await dispatch(processToQueue(image));
         const response = await dispatch(
             makeImage(
                 {
-                    data: imageData,
+                    // image: imageData,
+                    image: `data:image/png;base64,${imageData}`,
                     post_id: image.post_id
                 }
             ),
         );
+        // console.log(response);
+
+        if (response.type === 'MAKE_IMAGE_SUCCESS') {
+            await dispatch(RemoveToQueue(image));
+        }
 
         if (response.type !== 'MAKE_IMAGE_SUCCESS') {
+            await dispatch(ReQueue(image));
             throw Error('issue uploading failed');
         }
 
@@ -128,8 +199,8 @@ async function CreateImageUpload(dispatch, getState, id, image) {
 
 
     } catch (e) {
-
-
+        await dispatch(ReQueue(data));
+        console.log(e);
         throw e;
     }
 }
@@ -142,10 +213,16 @@ export const createPost = async (dispatch, getState, post) => {
 
 
 
-export const createImage = async (dispatch, getState, post) => {
-    await dispatch(
-        makeImage(post),
-    );
+export const createImage = async (dispatch, getState, image) => {
+    try {
+
+        const response = await dispatch(
+            makeImage(image),
+        );
+
+    } catch (e) {
+
+    }
 }
 
 export const registerQueue = () => async (dispatch, getState) => {
@@ -160,8 +237,11 @@ export const registerQueue = () => async (dispatch, getState) => {
 
     queue.addWorker(
         'create-image',
-        async (id, post) => await createImage(dispatch, getState, image),
-        { concurrency: 2 },
+        async (id, image) => {
+            console.log('Howdy');
+            await CreateImageUpload(dispatch, getState, image)
+        },
+        { concurrency: 1 },
     );
 
     queue.start();
@@ -181,12 +261,20 @@ export function* syncPostJobCreator({ type, payload }) {
 }
 
 
-export function* syncImageJobCreator(image) {
+export function* syncImageJobCreator({ type, payload }) {
     const queue = yield call(getQueueInstance);
     if (!queue.workersAdded) {
         return;
     }
-    queue.createJob('create-image', image, { attempts: 4 });
+
+    const drafts = yield select((state) => state.draft.queue.filter(shouldProcessItem));
+
+    for (let i in drafts) {
+
+        yield put(pushToQueue(drafts[i]));
+        queue.createJob('create-image', drafts[i], { attempts: 1 });
+    }
+
 }
 
 

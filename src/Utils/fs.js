@@ -58,8 +58,11 @@ export async function readImageDataFromUrl(url) {
 
     url = isIOS() ? getFileReadPath(url) : url;
     let imageData = '';
+    // console.log(url);
     if (!isValidUrl(url)) {
         const exist = await RNFetchBlob.fs.exists(url);
+        // console.log('eee');
+        // console.log(exist);
         if (exist) {
             imageData = await RNFetchBlob.fs.readFile(url, 'base64');
         }

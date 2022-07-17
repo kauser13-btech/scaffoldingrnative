@@ -58,7 +58,7 @@ const CameraScreen = ({ route, navigation }) => {
             const data = await cameraRef.current.takePictureAsync(options);
             const path = generateImagePathForPost(randstring);
             saveImage(path, data).then(() => {
-                console.log(path);
+                // console.log(path);
                 setImages([...images, {
                     id: randstring,
                     url: `file://${path}`,

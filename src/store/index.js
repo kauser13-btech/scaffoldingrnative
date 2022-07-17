@@ -8,6 +8,7 @@ import { axiosClient, axiosMiddlewareConfig } from '../api/axiosClient';
 import { rootSaga } from '../sagaConfig';
 import rootReducer from './reducres';
 import reduxThunk from 'redux-thunk';
+import { HEARTBEAT } from '../actions';
 
 const initialState = {};
 const sagaMiddleware = createSagaMiddleware();
@@ -32,7 +33,7 @@ const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
     version: 1,
-    whitelist: ['auth'],
+    whitelist: ['auth', 'draft'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -46,5 +47,9 @@ export const store = createStore(
 store.subscribe(() => { });
 sagaMiddleware.run(rootSaga);
 // export const rehydrateStore = cb => persistStore(store, null, cb);
+setInterval(async () => {
 
+    store.dispatch({ type: HEARTBEAT });
+
+}, 5000);
 export const rehydrateStore = persistStore(store);

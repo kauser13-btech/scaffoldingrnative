@@ -32,8 +32,8 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { CustomTextInput, CustopmDropdown } from '../Components/Input';
-import { CommonButton } from '../Components';
-import { makePost, syncPostJobCreator } from '../actions';
+import { CommonButton, RectButton } from '../Components';
+import { makePost, syncPostJobCreator, InitiateToQueue } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { posts_mock } from '../queue/mockData';
 // import { getQueueInstance } from '../queue/queueInstance';
@@ -57,7 +57,13 @@ const NewFeedScreen = ({ navigation }) => {
     const savePost = async () => {
         try {
             setLoading(true);
-            await dispatch(makePost({ title: inputData['title'], description: inputData['description'] }));
+            const response = await dispatch(makePost({ title: inputData['title'], description: inputData['description'] }));
+            if (response.type === 'MAKE_POST_SUCCESS') {
+                for (let i in images) {
+                    dispatch(InitiateToQueue({ ...images[i], post_id: response.payload.data.data.id }));
+                }
+            }
+
             setLoading(false);
             navigation.goBack();
         } catch (e) {
@@ -72,7 +78,7 @@ const NewFeedScreen = ({ navigation }) => {
             updateImages: updateImages
         });
     }
-    console.log(images);
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <KeyboardAvoidingView style={styles.container}>
@@ -93,8 +99,8 @@ const NewFeedScreen = ({ navigation }) => {
                                     setInputData({ ...inputData, location: location });
                                 }} data={[{ id: 1, title: 'Dhaka' }, { id: 2, title: "Rajshahi" }]} title={`Select  Location`} value={inputData['description']} isDarkMode={isDarkMode} />
                             </View>
-                            <View>
-                                <CommonButton pressFunction={navigateToCamera} title={`Attach Image`} />
+                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                <RectButton pressFunction={navigateToCamera} title={`Attach Image`} />
                             </View>
                         </View>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>

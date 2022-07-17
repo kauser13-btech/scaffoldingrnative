@@ -61,6 +61,7 @@ const LatestFeed = ({ isDarkMode, hnadleDetailView, counter }) => {
     };
     const dispatch = useDispatch();
     const posts = useSelector((state) => state.posts['data'] ? state.posts['data'] : []);
+    const drafts = useSelector((state) => state.draft['queue'] ? state.draft['queue'] : []);
     const pagination = useSelector((state) => state.posts['pagination'] ? state.posts['pagination'] : {});
 
 

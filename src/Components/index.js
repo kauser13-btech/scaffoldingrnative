@@ -33,6 +33,18 @@ export const CommonButton = ({ pressFunction, title, loading = false }) => {
 
 
 
+export const RectButton = ({ pressFunction, title, loading = false }) => {
+    return <Pressable style={styles.buttonRect} onPress={pressFunction}>
+        {
+            loading ? <ActivityIndicator size="small" color="#ffffff" /> : <Text style={styles.btnLabel}>{title}</Text>
+        }
+    </Pressable>
+
+
+}
+
+
+
 export const SendButton = ({ pressFunction, title }) => {
     return (<Pressable style={styles.sendButton} onPress={pressFunction}>
         {getIcon('send', 20, '#ffffff')}
@@ -70,5 +82,13 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+    buttonRect: {
+        backgroundColor: '#081C66',
+        width: 150,
+        height: 50,
+        // borderRadius: 40,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
 });
