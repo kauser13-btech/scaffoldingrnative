@@ -23,7 +23,7 @@ const BottomStack = () => {
                 tabBarStyle: ((route) => {
                     const routeName = getFocusedRouteNameFromRoute(route) ?? ""
                     // console.log(routeName)
-                    if (routeName === 'NewFeedScreen' || routeName === 'CameraScreen') {
+                    if (routeName === 'NewFeedScreen' || routeName === 'CameraScreen' || routeName === 'FeedDetailScreen') {
                         return { display: "none" }
                     }
                     return

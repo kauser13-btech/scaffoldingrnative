@@ -93,14 +93,16 @@ const FeedDetailScreen = ({ route, navigation }) => {
     };
 
     return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <TabView
+                navigationState={{ index, routes }}
+                renderScene={_renderScene}
+                onIndexChange={setIndex}
+                initialLayout={{ width: layout.width }}
+                renderTabBar={_renderTabBar}
+            />
+        </SafeAreaView>
 
-        <TabView
-            navigationState={{ index, routes }}
-            renderScene={_renderScene}
-            onIndexChange={setIndex}
-            initialLayout={{ width: layout.width }}
-            renderTabBar={_renderTabBar}
-        />
 
 
     );

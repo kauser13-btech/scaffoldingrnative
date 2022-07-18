@@ -59,6 +59,7 @@ const FeedScreen = ({ navigation }) => {
                     navigation.navigate("NewFeedScreen")
                 }} title="New Feed" />
             ),
+
         });
     }, [navigation]);
 
