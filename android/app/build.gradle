@@ -289,7 +289,7 @@ dependencies {
     }
     implementation project(':react-native-camera')
     implementation project(':react-native-vector-icons')
-    implementation project(':realm')
+
 }
 
 if (isNewArchitectureEnabled()) {
