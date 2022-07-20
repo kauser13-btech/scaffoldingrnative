@@ -16,6 +16,7 @@ export const UPLOAD_START = 'UPLOAD_START';
 export const REQUEUE = 'REQUEUE';
 export const REMOVE_QUEUE = 'REMOVE_QUEUE';
 export const HEARTBEAT = 'HEARTBEAT';
+import queue, { Worker } from 'react-native-job-queue';
 
 export const loginSubmit = (username, password) => {
     return {
@@ -227,52 +228,64 @@ export const createImage = async (dispatch, getState, image) => {
 
 export const registerQueue = () => async (dispatch, getState) => {
 
-    const queue = await getQueueInstance();
-    queue.addWorker(
-        'create-post',
-        async (id, post) => await createPost(dispatch, getState, post),
-        { concurrency: 2 },
-    );
+    // const queue = await getQueueInstance();
+    // queue.addWorker(
+    //     'create-post',
+    //     async (id, post) => await createPost(dispatch, getState, post),
+    //     { concurrency: 2 },
+    // );
 
 
-    queue.addWorker(
-        'create-image',
-        async (id, image) => {
-            console.log('Howdy');
-            await CreateImageUpload(dispatch, getState, image)
-        },
-        { concurrency: 1 },
-    );
+    queue.configure({
+        onQueueFinish: (executed) => {
+            console.log('FinishedQueue');
+        }
+    });
 
-    queue.start();
 
-    queue.workersAdded = true;
-    // dispatch action save in redux queue.isStarted
+    queue.addWorker(new Worker("create-image", async (payload) => {
+        return await CreateImageUpload(dispatch, getState, payload.image);
+    }))
+
+
+    // queue.addWorker(
+    //     'create-image',
+    //     async (id, image) => {
+    //         console.log('Howdy');
+    //         await CreateImageUpload(dispatch, getState, image)
+    //     },
+    //     { concurrency: 1 },
+    // );
+
+    // queue.start();
+
+    // queue.workersAdded = true;
+    // // dispatch action save in redux queue.isStarted
 };
 
 
 
-export function* syncPostJobCreator({ type, payload }) {
-    const queue = yield call(getQueueInstance);
-    if (!queue.workersAdded) {
-        return;
-    }
-    queue.createJob('create-post', post, { attempts: 4 });
-}
+// export function* syncPostJobCreator({ type, payload }) {
+//     const queue = yield call(getQueueInstance);
+//     if (!queue.workersAdded) {
+//         return;
+//     }
+//     queue.createJob('create-post', post, { attempts: 4 });
+// }
 
 
 export function* syncImageJobCreator({ type, payload }) {
-    const queue = yield call(getQueueInstance);
-    if (!queue.workersAdded) {
-        return;
-    }
+    // const queue = yield call(getQueueInstance);
+    // if (!queue.workersAdded) {
+    //     return;
+    // }
 
     const drafts = yield select((state) => state.draft.queue.filter(shouldProcessItem));
 
     for (let i in drafts) {
 
         yield put(pushToQueue(drafts[i]));
-        queue.createJob('create-image', drafts[i], { attempts: 1 });
+        queue.addJob('create-image', { image: drafts[i] });
     }
 
 }
