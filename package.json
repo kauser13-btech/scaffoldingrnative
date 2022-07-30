@@ -22,6 +22,7 @@
     "date-fns": "^2.28.0",
     "react": "17.0.2",
     "react-native": "0.68.2",
+    "react-native-animated-circular-progress": "^1.0.6",
     "react-native-camera": "^4.2.1",
     "react-native-config": "^1.4.6",
     "react-native-fast-image": "^8.5.11",

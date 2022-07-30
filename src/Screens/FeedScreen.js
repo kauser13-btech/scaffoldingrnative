@@ -99,16 +99,16 @@ const FeedScreen = ({ navigation }) => {
     };
 
     return (
-        <SafeAreaView style={backgroundStyle}>
-            <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-            <TabView
-                navigationState={{ index, routes }}
-                renderScene={_renderScene}
-                onIndexChange={setIndex}
-                initialLayout={{ width: layout.width, height: layout.height }}
-                renderTabBar={_renderTabBar}
-            />
-        </SafeAreaView >
+        // <View style={backgroundStyle}>
+
+        <TabView
+            navigationState={{ index, routes }}
+            renderScene={_renderScene}
+            onIndexChange={setIndex}
+            initialLayout={{ width: layout.width, height: layout.height }}
+            renderTabBar={_renderTabBar}
+        />
+        // </View >
 
     );
 };
@@ -140,23 +140,6 @@ const styles = StyleSheet.create({
 
 });
 
-FeedScreen.options = {
-    topBar: {
-        visible: true,
-        rightButtons: [
-            {
-                id: 'newAppraisal',
-                //   icon: iconsMap.plus,
-                enabled: true,
-                disableIconTint: false,
-                // color: 'white',
-                disabledColor: 'black',
-                testID: 'newAppraisalClickTest',
-                text: 'Post'
-            },
-        ],
-    },
-};
 
 export default FeedScreen;
 

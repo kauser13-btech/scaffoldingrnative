@@ -5685,6 +5685,11 @@ react-is@^16.13.0, react-is@^16.13.1, react-is@^16.7.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-native-animated-circular-progress@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-animated-circular-progress/-/react-native-animated-circular-progress-1.0.6.tgz#88803ab14ce549b1626309ed60a83fdfa05a5f69"
+  integrity sha512-tV7Cw5yK3+Nj6G8HrHRKMToioMDECEmXH21bHzdtHiRQvBL7lbasr9l165AL3hGrAyFsMuza6aemwq/bSh62rw==
+
 react-native-camera@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-4.2.1.tgz#caf74081f055e89d7e9b0cd5108965d808c60e90"
