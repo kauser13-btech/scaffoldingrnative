@@ -25,7 +25,7 @@ export const ArticleImageGrid = ({ images }) => {
             <FastImage
                 style={{ width: layout_width, height: layout_width / 2 }}
                 source={{
-                    uri: images[0]['thumb'],
+                    uri: images[0]['url'],
                     // headers: { Authorization: 'someAuthToken' },
                     priority: FastImage.priority.normal,
                 }}
@@ -38,7 +38,7 @@ export const ArticleImageGrid = ({ images }) => {
                 <FastImage
                     style={{ width: layout_width / 2, height: layout_width / 3 }}
                     source={{
-                        uri: images[0]['thumb'],
+                        uri: images[0]['url'],
                         // headers: { Authorization: 'someAuthToken' },
                         priority: FastImage.priority.normal,
                     }}
@@ -48,7 +48,7 @@ export const ArticleImageGrid = ({ images }) => {
                 <FastImage
                     style={{ width: layout_width / 2, height: layout_width / 3 }}
                     source={{
-                        uri: images[1]['thumb'],
+                        uri: images[1]['url'],
                         // headers: { Authorization: 'someAuthToken' },
                         priority: FastImage.priority.normal,
                     }}
@@ -63,7 +63,7 @@ export const ArticleImageGrid = ({ images }) => {
                 <FastImage
                     style={{ width: layout_width, height: layout_width / 2 }}
                     source={{
-                        uri: images[0]['thumb'],
+                        uri: images[0]['url'],
                         // headers: { Authorization: 'someAuthToken' },
                         priority: FastImage.priority.normal,
                     }}
@@ -79,7 +79,7 @@ export const ArticleImageGrid = ({ images }) => {
                                 key={key}
                                 style={{ flex: 1 / (total - 1), height: layout_width / 3 }}
                                 source={{
-                                    uri: images[key]['thumb'],
+                                    uri: images[key]['url'],
                                     // headers: { Authorization: 'someAuthToken' },
                                     priority: FastImage.priority.normal,
                                 }}

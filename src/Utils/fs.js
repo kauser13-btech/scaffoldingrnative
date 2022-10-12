@@ -21,7 +21,7 @@ export function getImageDir() {
 
 export function saveImage(path, image) {
     if (isIOS()) {
-        return RNFetchBlob.fs.writeFile(path, image.base64, 'base64');
+        return RNFetchBlob.fs.writeFile(path, image.base64 ? image.base64 : image, 'base64');
     }
 
     return RNFetchBlob.fs.writeFile(path, image.uri, 'uri');
@@ -35,7 +35,7 @@ export function generateImagePathForPost(identifier) {
     return path;
 }
 
-function getImageSize(uri: string) {
+export function getImageSize(uri: string) {
     const success = (resolve) => (width: number, height: number) => {
         resolve({
             width,

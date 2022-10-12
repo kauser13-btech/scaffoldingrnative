@@ -248,37 +248,15 @@ export const registerQueue = () => async (dispatch, getState) => {
     }))
 
 
-    // queue.addWorker(
-    //     'create-image',
-    //     async (id, image) => {
-    //         console.log('Howdy');
-    //         await CreateImageUpload(dispatch, getState, image)
-    //     },
-    //     { concurrency: 1 },
-    // );
 
-    // queue.start();
-
-    // queue.workersAdded = true;
-    // // dispatch action save in redux queue.isStarted
 };
 
 
 
-// export function* syncPostJobCreator({ type, payload }) {
-//     const queue = yield call(getQueueInstance);
-//     if (!queue.workersAdded) {
-//         return;
-//     }
-//     queue.createJob('create-post', post, { attempts: 4 });
-// }
 
 
 export function* syncImageJobCreator({ type, payload }) {
-    // const queue = yield call(getQueueInstance);
-    // if (!queue.workersAdded) {
-    //     return;
-    // }
+
 
     const drafts = yield select((state) => state.draft.queue.filter(shouldProcessItem));
 

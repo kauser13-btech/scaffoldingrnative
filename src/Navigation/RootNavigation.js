@@ -5,11 +5,11 @@ import { StatusBar, View, ActivityIndicator, useColorScheme } from 'react-native
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { fetchProfile } from '../actions';
 import { AuthStack } from './StackNavigator';
-import { BottomStack } from './TabNavigator';
+import { ApprovalBottomStack } from './TabNavigator';
 const RootNavigation = () => {
     const isDarkMode = useColorScheme() === 'dark';
     const token = useSelector(state => state.auth['api_token'] && state.auth['api_token']);
-    console.log(token);
+    // console.log(token);
     const [loading, setLoading] = useState(true);
 
     const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const RootNavigation = () => {
             <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
             {
                 token === undefined ?
-                    <AuthStack /> : <BottomStack />
+                    <AuthStack /> : <ApprovalBottomStack />
             }
         </NavigationContainer>
     )

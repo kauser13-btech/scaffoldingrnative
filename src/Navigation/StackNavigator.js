@@ -14,6 +14,9 @@ import FeedDetailScreen from "../Screens/FeedDetailScreen";
 import { Button } from "react-native";
 import NewFeedScreen from "../Screens/NewFeedScreen";
 import CameraScreen from "../Screens/CameraScreen";
+import ApprovalScreen from "../Screens/ApprovalScreen";
+import ApprovalDetailScreen from "../Screens/ApprovalDetailScreen";
+import WebViewScreen from "../Screens/WebViewScreen";
 
 const Stack = createStackNavigator();
 
@@ -103,4 +106,28 @@ const AuthStack = () => {
     )
 }
 
-export { MainStackNavigator, ContactStackNavigator, HomeStack, AuthStack, FeedStack };
+
+
+const ApprovalStack = () => {
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                orientation: 'portrait',
+            }}>
+            <Stack.Screen options={{
+                title: 'Home',
+            }} name="ApprovalScreen" component={ApprovalScreen} />
+            <Stack.Screen options={{
+                title: 'Approval Detail Screen'
+            }} name="ApprovalDetailScreen" component={ApprovalDetailScreen} />
+
+
+            <Stack.Screen options={{
+                title: 'Sign view'
+            }} name="SignView" component={WebViewScreen} />
+
+        </Stack.Navigator>
+    );
+}
+
+export { MainStackNavigator, ContactStackNavigator, HomeStack, AuthStack, FeedStack, ApprovalStack };

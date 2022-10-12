@@ -14,7 +14,7 @@ import {
     Colors
 } from 'react-native/Libraries/NewAppScreen';
 
-const ArticleDetail = ({ isDarkMode, post, hnadleDetailView }) => {
+const ArticleDetail = ({ isDarkMode, post }) => {
 
 
 
@@ -24,28 +24,12 @@ const ArticleDetail = ({ isDarkMode, post, hnadleDetailView }) => {
             contentContainerStyle={styles.content}
         >
 
-            <Text style={{ ...styles.title, color: isDarkMode ? Colors.light : Colors.dark }}>Lorem Ipsum</Text>
+            <Text style={{ ...styles.title, color: isDarkMode ? Colors.light : Colors.dark }}> {post['title']}</Text>
             <Text style={{ ...styles.paragraph, color: isDarkMode ? Colors.light : Colors.dark }}>
-                Contrary
-                to popular belief, Lorem Ipsum is not simply random text. It
-                has roots in a piece of classical Latin literature from 45 BC, making
-                it over 2000 years old.
+                {post['description']}
             </Text>
 
-            <Text style={{ ...styles.paragraph, color: isDarkMode ? Colors.light : Colors.dark }}>
-                Richard McClintock, a Latin professor at Hampden-Sydney College in
-                Virginia, looked up one of the more obscure Latin words, consectetur,
-                from a Lorem Ipsum passage, and going through the cites of the word in
-                classical literature, discovered the undoubtable source.
-            </Text>
-            <Text style={{ ...styles.paragraph, color: isDarkMode ? Colors.light : Colors.dark }}>
-                Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of &quot;de
-                Finibus Bonorum et Malorum&quot; (The Extremes of Good and Evil) by
-                Cicero, written in 45 BC. This book is a treatise on the theory of
-                ethics, very popular during the Renaissance. The first line of Lorem
-                Ipsum, &quot;Lorem ipsum dolor sit amet..&quot;, comes from a line in
-                section 1.10.32.
-            </Text>
+
         </ScrollView>
 
 

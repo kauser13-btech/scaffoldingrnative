@@ -24,7 +24,7 @@ const Avatar = ({ image }) => (
     />
 )
 
-const Article = ({ isDarkMode, post, hnadleDetailView }) => {
+const Article = ({ isDarkMode, post, navigation }) => {
 
 
 
@@ -32,7 +32,7 @@ const Article = ({ isDarkMode, post, hnadleDetailView }) => {
         <View style={{ flex: 1 }}>
             <View style={styles.profile_wrapper}>
                 <Pressable onPress={() => {
-                    hnadleDetailView(post);
+                    navigation.navigate('ApprovalDetailScreen', { post_id: post['id'], status: post['status'] });
                 }} style={{ flexDirection: 'row', paddingLeft: 10, paddingRight: 10 }}>
                     <Avatar image={post['user']['thumb']} />
                     <View style={{ paddingLeft: 10, paddingTop: 5 }}>
@@ -49,18 +49,18 @@ const Article = ({ isDarkMode, post, hnadleDetailView }) => {
                 </Pressable>
             </View>
             <Pressable onPress={() => {
-                hnadleDetailView(post);
+                navigation.navigate('ApprovalDetailScreen', { post_id: post['id'], status: post['status'] });
             }}>
                 <Text style={{ ...styles.paragraph, color: isDarkMode ? '#E1E4E8' : '#606060' }}>
                     {
                         post['title']
                     }
                 </Text>
-
+                <ArticleImageGrid images={post['assets']} />
             </Pressable>
 
 
-            <ArticleImageGrid images={post['images']} />
+
         </View>
 
 

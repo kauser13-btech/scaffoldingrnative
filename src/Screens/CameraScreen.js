@@ -68,7 +68,10 @@ const CameraScreen = ({ route, navigation }) => {
                     id: randstring,
                     url: `file://${path}`,
                     thumb: `file://${path}`,
-                });
+                }).catch((error) => {
+                    // this.setState({ takingPicture: false });
+                    console.log(error)
+                });;
                 navigation.goBack();
             });
         }

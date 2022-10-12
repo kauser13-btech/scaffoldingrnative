@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>15798787338-mt09ho5fo886g6r90l054319os6j40ci.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.15798787338-mt09ho5fo886g6r90l054319os6j40ci</string>
+	<key>API_KEY</key>
+	<string>AIzaSyABkO62KCIJvWe58UTUu5188T2r_G1mRp0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>15798787338</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sayvee.carpraze</string>
+	<key>PROJECT_ID</key>
+	<string>carpraze</string>
+	<key>STORAGE_BUCKET</key>
+	<string>carpraze.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:15798787338:ios:00ed6737069a586d</string>
+	<key>DATABASE_URL</key>
+	<string>https://carpraze.firebaseio.com</string>
+</dict>
+</plist>
