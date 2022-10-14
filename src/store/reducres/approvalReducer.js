@@ -1,4 +1,4 @@
-import { SAVE_APPROVAL, FETCH_APPROVAL, CHAGE_APPROVAL_STATUS, APPENND_ASSET } from '../../actions/approval';
+import { SAVE_APPROVAL, FETCH_APPROVAL, CHAGE_APPROVAL_STATUS, APPENND_ASSET, EDIT_ASSET } from '../../actions/approval';
 
 const initialState = {};
 
@@ -34,8 +34,7 @@ export function approvalReducer(state = initialState, action) {
         }
 
         case APPENND_ASSET: {
-            // console.log(payload);
-            // console.log(state[payload['approvals_type']]);
+
             return {
                 ...state,
                 [payload['approvals_type']]: state[payload['approvals_type']].map(approval => {
@@ -43,6 +42,23 @@ export function approvalReducer(state = initialState, action) {
                     return payload['id'] === approval['id'] ?
                         {
                             ...approval, assets: [payload['data'], ...approval['assets']]
+                        } : approval;
+                })
+            };
+        }
+
+
+        case EDIT_ASSET: {
+
+            return {
+                ...state,
+                [payload['approvals_type']]: state[payload['approvals_type']].map(approval => {
+
+                    return payload['id'] === approval['id'] ?
+                        {
+                            ...approval, assets: approval['assets'].map(asset => {
+                                return asset['id'] === payload['data']['id'] ? { ...asset, url: payload['data']['url'] } : asset
+                            })
                         } : approval;
                 })
             };

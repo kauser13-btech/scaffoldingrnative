@@ -55,7 +55,7 @@ export function draftReducer(state = initialState, action) {
             return {
                 ...state,
                 queue: state.queue.filter(item => {
-                    console.log(item.id == payload.data.id);
+                    // console.log(item.id == payload.data.id);
                     return item.id !== payload.data.id;
                 })
 

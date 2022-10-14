@@ -33,7 +33,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ArticleDetail from '../Components/Article/ArticleDetail';
 import { Grid } from '../Components/Images/Grid';
 import { Messsaging } from '../Components/Messsaging';
-import { appendAsset } from '../actions/approval';
+import { appendAsset, EditAsset } from '../actions/approval';
 const ApprovalDetailScreen = ({ route, navigation }) => {
     const dispatch = useDispatch();
     const { post_id, status } = route.params;
@@ -64,7 +64,8 @@ const ApprovalDetailScreen = ({ route, navigation }) => {
         setImages(images => {
             return [...images, image];
         });
-        dispatch(appendAsset(image, post['id'], post['status']));
+        // console.log(image);
+        dispatch(EditAsset(image, post['id'], post['status']));
     }
 
 
@@ -99,6 +100,7 @@ const ApprovalDetailScreen = ({ route, navigation }) => {
                 return <ArticleDetail post={post} isDarkMode={isDarkMode} />;
             case 'signing_doc':
                 return <Grid loadImages={loadImages} navigation={navigation} images={post['assets'].filter(image => {
+                    return true;
                     return image['status'] === 1
                 })} isDarkMode={isDarkMode} />;
 

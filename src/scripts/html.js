@@ -179,7 +179,7 @@ export const getHtml = (url, width, height) => {
                         <button type="button" class="button" data-action="undo">Undo</button>
     
                     </div>
-                    <div >
+                    <div style="display:none;">
                         <button type="button" class="button save" data-action="save-png">Save</button>
     
                     </div>
@@ -312,9 +312,9 @@ export const getHtml = (url, width, height) => {
                 if (signaturePad.isEmpty()) {
                     alert("Please provide a signature first.")
                 } else {
-                    const dataURL = signaturePad.toDataURL()
+                    // const dataURL = signaturePad.toDataURL()
                     
-                    window.ReactNativeWebView.postMessage(dataURL)
+                    // window.ReactNativeWebView.postMessage(dataURL)
                    
                 }
             })
@@ -350,6 +350,9 @@ export const getHtml = (url, width, height) => {
                 getBase64Image(image_url);
                 window.addEventListener("message", message => {
                     // alert(message.data) 
+                    const dataURL = signaturePad.toDataURL()
+                    
+                    window.ReactNativeWebView.postMessage(dataURL)
                   });
               })();
         </script>

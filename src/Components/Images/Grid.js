@@ -30,7 +30,7 @@ export const Grid = ({ images, isDarkMode, navigation, loadImages }) => {
                 //     <SigningArea setSenable={setSenable} image={image} key={i} />
                 // </View>
                 <Pressable key={image['id']} style={{ padding: 20 }} onPress={() => {
-                    navigation.navigate('SignView', { image, loadImages });
+                    navigation.navigate('SignView', { image, loadImages, images, index: i });
                 }}>
                     <FastImage
                         key={i}

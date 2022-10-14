@@ -2,7 +2,7 @@ export const SAVE_APPROVAL = 'SAVE_APPROVAL';
 export const SAVE_APPROVAL_ASSET = 'SAVE_APPROVAL_ASSET';
 export const FETCH_APPROVAL = 'FETCH_APPROVAL';
 export const CHAGE_APPROVAL_STATUS = 'CHAGE_APPROVAL_STATUS';
-export const APPENND_ASSET = 'APPENND_ASSET';
+export const EDIT_ASSET = 'EDIT_ASSET';
 
 
 export const saveApproval = (data) => {
@@ -68,6 +68,16 @@ export const changeApprovalStatus = (data, prev_status) => {
 export const appendAsset = (data, id, approvals_type) => {
     return {
         type: APPENND_ASSET,
+        payload: {
+            data, id, approvals_type
+        },
+    };
+};
+
+
+export const EditAsset = (data, id, approvals_type) => {
+    return {
+        type: EDIT_ASSET,
         payload: {
             data, id, approvals_type
         },

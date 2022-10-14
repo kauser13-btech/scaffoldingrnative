@@ -33,7 +33,7 @@ const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
     version: 1,
-    whitelist: ['auth', 'draft'],
+    whitelist: ['auth', 'draft', 'approvals'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
