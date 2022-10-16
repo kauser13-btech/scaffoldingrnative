@@ -33,14 +33,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import ArticleDetail from '../Components/Article/ArticleDetail';
 import { Grid } from '../Components/Images/Grid';
 import { Messsaging } from '../Components/Messsaging';
-import { appendAsset, EditAsset } from '../actions/approval';
+import { appendAsset, EditAsset, changeApprovalStatus } from '../actions/approval';
+import { getPost } from '../Utils/util';
+
+
 const ApprovalDetailScreen = ({ route, navigation }) => {
     const dispatch = useDispatch();
     const { post_id, status } = route.params;
     const approvals = useSelector((state) => state['approvals'] && state['approvals']);
-    const post = approvals[status].find(approval => {
-        return approval['id'] === post_id;
-    });
+    const post = getPost(approvals, post_id);
 
     const [images, setImages] = useState([]);
     const isDarkMode = useColorScheme() === 'dark';
@@ -61,14 +62,13 @@ const ApprovalDetailScreen = ({ route, navigation }) => {
 
 
     const loadImages = (image) => {
-        setImages(images => {
-            return [...images, image];
-        });
-        // console.log(image);
+        console.log(image);
         dispatch(EditAsset(image, post['id'], post['status']));
     }
 
-
+    const changeApprovalState = async (status) => {
+        await dispatch(changeApprovalStatus({ id: post['id'], status }, post['status']));
+    }
 
 
     useEffect(() => {
@@ -99,13 +99,13 @@ const ApprovalDetailScreen = ({ route, navigation }) => {
             case 'article':
                 return <ArticleDetail post={post} isDarkMode={isDarkMode} />;
             case 'signing_doc':
-                return <Grid loadImages={loadImages} navigation={navigation} images={post['assets'].filter(image => {
+                return <Grid post={post} changeApprovalState={changeApprovalState} loadImages={loadImages} navigation={navigation} images={post['assets'].filter(image => {
                     return true;
                     return image['status'] === 1
                 })} isDarkMode={isDarkMode} />;
 
             case 'supporting_doc':
-                return <Grid loadImages={loadImages} navigation={navigation} images={post['assets'].filter(image => {
+                return <Grid post={post} changeApprovalState={changeApprovalState} loadImages={loadImages} navigation={navigation} images={post['assets'].filter(image => {
                     return image['status'] === 2
                 })} isDarkMode={isDarkMode} />;
             case 'messsaging':

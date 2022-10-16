@@ -32,3 +32,18 @@ export const isIOS = () => {
     return Platform.OS === 'ios';
 };
 
+
+
+export const getPost = (approvals, post_id) => {
+    let post = null;
+    for (let i = 0; i < 3; i++) {
+        if (approvals[i]) {
+            post = approvals[i].find(approval => {
+                return approval['id'] === post_id;
+            });
+        }
+        if (post)
+            break;
+    }
+    return post;
+}

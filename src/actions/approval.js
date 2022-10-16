@@ -3,7 +3,7 @@ export const SAVE_APPROVAL_ASSET = 'SAVE_APPROVAL_ASSET';
 export const FETCH_APPROVAL = 'FETCH_APPROVAL';
 export const CHAGE_APPROVAL_STATUS = 'CHAGE_APPROVAL_STATUS';
 export const EDIT_ASSET = 'EDIT_ASSET';
-
+export const UPDATE_APPROVAL_ASSET = 'UPDATE_APPROVAL_ASSET';
 
 export const saveApproval = (data) => {
     return {
@@ -85,5 +85,19 @@ export const EditAsset = (data, id, approvals_type) => {
 };
 
 
+
+export const updateApprovalAsset = (data, prev_status) => {
+    return {
+        type: UPDATE_APPROVAL_ASSET,
+        approvals_type: prev_status,
+        payload: {
+            request: {
+                url: 'api/v1/approvals/asset',
+                method: 'put',
+                data: data,
+            },
+        },
+    };
+};
 
 

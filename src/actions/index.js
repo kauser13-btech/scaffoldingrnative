@@ -17,6 +17,7 @@ export const REQUEUE = 'REQUEUE';
 export const REMOVE_QUEUE = 'REMOVE_QUEUE';
 export const HEARTBEAT = 'HEARTBEAT';
 import queue, { Worker } from 'react-native-job-queue';
+import { updateApprovalAsset } from "./approval";
 
 export const loginSubmit = (username, password) => {
     return {
@@ -102,7 +103,7 @@ export const makeImage = (data) => {
 
 
 export const InitiateToQueue = (data) => {
-
+    // console.log(data);
     return {
         type: INITIATE_QUEUE,
         payload: {
@@ -173,21 +174,20 @@ async function CreateImageUpload(dispatch, getState, image) {
         }
         await dispatch(processToQueue(image));
         const response = await dispatch(
-            makeImage(
+            updateApprovalAsset(
                 {
-                    // image: imageData,
-                    image: `data:image/png;base64,${imageData}`,
-                    post_id: image.post_id
-                }
+                    id: image.id,
+                    image: `data:image/png;base64,${imageData}`
+                }, 1
             ),
         );
-        // console.log(response);
+        console.log(response);
 
-        if (response.type === 'MAKE_IMAGE_SUCCESS') {
+        if (response.type === 'UPDATE_APPROVAL_ASSET_SUCCESS') {
             await dispatch(RemoveToQueue(image));
         }
 
-        if (response.type !== 'MAKE_IMAGE_SUCCESS') {
+        if (response.type !== 'UPDATE_APPROVAL_ASSET_SUCCESS') {
             await dispatch(ReQueue(image));
             throw Error('issue uploading failed');
         }

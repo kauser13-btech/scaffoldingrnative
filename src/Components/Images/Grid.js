@@ -15,7 +15,7 @@ import { Pressable } from 'react-native';
 // import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 // import { SketchCanvas } from '@terrylinla/react-native-sketch-canvas';
 
-export const Grid = ({ images, isDarkMode, navigation, loadImages }) => {
+export const Grid = ({ images, isDarkMode, navigation, loadImages, changeApprovalState, post }) => {
 
     const [senable, setSenable] = useState(true);
     return (
@@ -30,7 +30,7 @@ export const Grid = ({ images, isDarkMode, navigation, loadImages }) => {
                 //     <SigningArea setSenable={setSenable} image={image} key={i} />
                 // </View>
                 <Pressable key={image['id']} style={{ padding: 20 }} onPress={() => {
-                    navigation.navigate('SignView', { image, loadImages, images, index: i });
+                    navigation.navigate('SignView', { image, loadImages, images, index: i, changeApprovalState, post_id: post['id'] });
                 }}>
                     <FastImage
                         key={i}
