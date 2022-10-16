@@ -36,7 +36,7 @@ export const isIOS = () => {
 
 export const getPost = (approvals, post_id) => {
     let post = null;
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
         if (approvals[i]) {
             post = approvals[i].find(approval => {
                 return approval['id'] === post_id;
